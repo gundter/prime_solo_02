@@ -1,5 +1,17 @@
 // ! ! !
 // Three Bugs
+/*
+The first bug that I found was on line 31, the code starting as "array[i] =
+calculateSTI(array); the code needs to be "array[i] = calculateSTI(array[i]);" 
+since we are passing in an array within an array we need to indicate which index.
+
+The second bug was on line 81, the function getBaseSTI was returning the correct 
+percentage but it was subtracting 1 at the end. Deleting that fixed the problem.
+
+The third bug was just needed per the directions. The bonus needed to be rounded
+to the nearest dollar. By adding the Math.round() function to newArray[3] fixed
+the problem.
+*/
 
 var arrayAtticus = ["Atticus", "2405", "47000", 3];
 var arrayJem = ["Jem", "62347", "63500", 4];
@@ -16,7 +28,7 @@ position = document.getElementById('content');
 //Loop the array, extracting each array and writing information to the DOM
 //Note that the information is not 'clean'
 for(var i = 0; i < array.length; i++){
-	array[i] = calculateSTI(array);
+	array[i] = calculateSTI(array[i]);
  	newEl = document.createElement('li');
 	newText = document.createTextNode(array[i]);
 	newEl.appendChild(newText);
@@ -39,11 +51,14 @@ function calculateSTI(array){
 
   newArray[1] = bonus;
   newArray[2] = baseSalary * (1.0 + bonus);
-  newArray[3] = baseSalary * bonus;
+  newArray[2] = newArray[2] * 100;
+  newArray[2] = Math.round(newArray[2]);
+  newArray[2] = newArray[2] / 100;
+  newArray[3] = Math.round(baseSalary * bonus);
   console.log(newArray[0] + " " + newArray[1] + " " + newArray[2] + " " + newArray[3]);
   return newArray;
 }
-
+console.log(array);
 function getBaseSTI(reviewScore){
   var basePercent;
   switch(reviewScore){
@@ -63,7 +78,7 @@ function getBaseSTI(reviewScore){
       basePercent = 0.10;
       break;
   }
-  return basePercent - 1;
+  return basePercent;
 }
 
 function getYearAdjustment(employeeNumber){
