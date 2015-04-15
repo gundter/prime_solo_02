@@ -1,0 +1,10 @@
+body {
+	background-color: #CCCCCC;
+	text-align: center;
+	margin: 60px 0px 60px 0px;
+}
+
+body, ul {
+	list-style-type: none;
+	color: #0000ff;
+}
